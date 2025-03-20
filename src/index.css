@@ -1,68 +1,335 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --primary-color: #2563eb;
+  --primary-hover: #1d4ed8;
+  --danger-color: #dc2626;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-900: #111827;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--gray-50);
+}
+
+.container {
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.content {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+.header {
+  margin-bottom: 2rem;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: var(--gray-900);
+}
+
+.add-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 0.875rem;
   font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.add-button:hover {
+  background-color: var(--primary-hover);
+}
+
+.add-button svg {
+  margin-right: 0.5rem;
+}
+
+.search-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.search-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gray-400);
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.group-select {
+  width: 12rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+}
+
+.group-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.contact-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.contact-card {
+  background: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s;
+}
+
+.contact-card:hover {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contact-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.contact-type-icon {
+  padding: 0.5rem;
+  border-radius: 9999px;
+}
+
+.contact-type-icon.personal {
+  background-color: #dbeafe;
+  color: var(--primary-color);
+}
+
+.contact-type-icon.professional {
+  background-color: #f3e8ff;
+  color: #7c3aed;
+}
+
+.contact-name {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.contact-group {
+  font-size: 0.875rem;
+  color: var(--gray-500);
+}
+
+.contact-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.action-button {
+  padding: 0.25rem;
+  border: none;
+  border-radius: 9999px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background-color: var(--gray-100);
+}
+
+.action-button.edit {
+  color: var(--gray-600);
+}
+
+.action-button.delete {
+  color: var(--danger-color);
+}
+
+.contact-details {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+}
+
+.detail-label {
+  font-size: 0.875rem;
+  color: var(--gray-500);
+}
+
+.detail-value {
+  font-size: 0.875rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 42rem;
+  padding: 1.5rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.close-button {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 9999px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background-color: var(--gray-100);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.form-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--gray-700);
+}
+
+.form-input,
+.form-select {
+  padding: 0.5rem;
+  border: 1px solid var(--gray-300);
+  border-radius: 0.375rem;
+  width: 100%;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 1px var(--primary-color);
+}
+
+.error-message {
+  font-size: 0.875rem;
+  color: var(--danger-color);
+}
+
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  padding-top: 1rem;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.button-secondary {
+  border: 1px solid var(--gray-300);
+  background-color: white;
+  color: var(--gray-700);
+}
+
+.button-secondary:hover {
+  background-color: var(--gray-50);
+}
+
+.button-primary {
+  border: none;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.button-primary:hover {
+  background-color: var(--primary-hover);
 }
