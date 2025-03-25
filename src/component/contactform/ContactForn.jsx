@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { X } from 'lucide-react';
 
@@ -10,20 +10,48 @@ export const ContactForm = ({
     const {
         register,
         handleSubmit,
-        formState: { errors }
+        formState: { errors },
+        setValue,
+        watch
     } = useForm({
         defaultValues: initialData || {
             firstName: '',
             lastName: '',
             email: '',
             phone: '',
+            countryCode: '+237', // Default country code Cameroon
             group: '',
             type: 'personal'
         }
     });
 
+    // Watch for country code and phone changes
+    const countryCode = watch("countryCode");
+    const phone = watch("phone");
+
+    const countryCodes = [
+        { code: '+237', name: 'Cameroon' },
+        { code: '+1', name: 'USA' },
+        { code: '+44', name: 'UK' },
+        { code: '+33', name: 'France' },
+        { code: '+49', name: 'Germany' },
+        { code: '+234', name: 'Nigeria' },
+        { code: '+254', name: 'Kenya' },
+        { code: '+27', name: 'South Africa' }
+    ];
+
+    const handlePhoneChange = (e) => {
+        const phoneValue = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+        setValue("phone", phoneValue);
+    };
+
+    const handleFinalSubmit = (data) => {
+        const fullPhoneNumber = `${data.countryCode} ${data.phone}`;
+        onSubmit({ ...data, phone: fullPhoneNumber });
+    };
+
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="form">
+        <form onSubmit={handleSubmit(handleFinalSubmit)} className="form">
             <div className="form-header">
                 <h2 className="form-title">
                     {initialData ? 'Edit Contact' : 'Add New Contact'}
@@ -78,18 +106,32 @@ export const ContactForm = ({
                     )}
                 </div>
 
+                {/* Phone Number with Country Code */}
                 <div className="form-group">
                     <label className="form-label">Phone</label>
-                    <input
-                        {...register('phone', {
-                            required: 'Phone is required',
-                            pattern: {
-                                value: /^\+?[\d\s-]+$/,
-                                message: 'Invalid phone number'
-                            }
-                        })}
-                        className="form-input"
-                    />
+                    <div className="phone-input">
+                        <select
+                            {...register('countryCode')}
+                            className="country-code-select"
+                        >
+                            {countryCodes.map((country) => (
+                                <option key={country.code} value={country.code}>
+                                    {country.name} ({country.code})
+                                </option>
+                            ))}
+                        </select>
+                        <input
+                            {...register('phone', {
+                                required: 'Phone is required',
+                                pattern: {
+                                    value: /^\d{6,15}$/,
+                                    message: 'Invalid phone number'
+                                }
+                            })}
+                            className="form-input phone-number"
+                            onChange={handlePhoneChange}
+                        />
+                    </div>
                     {errors.phone && (
                         <p className="error-message">{errors.phone.message}</p>
                     )}

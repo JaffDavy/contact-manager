@@ -1,14 +1,15 @@
 import React from 'react';
 import { Edit2, Trash2, User, Briefcase } from 'lucide-react';
 
-export const ContactList = ({
-    contacts,
-    onEdit,
-    onDelete
-}) => {
+export const ContactList = ({ contacts, onEdit, onDelete }) => {
+    // Sort contacts alphabetically by first name
+    const sortedContacts = [...contacts].sort((a, b) => 
+        a.firstName.localeCompare(b.firstName)
+    );
+
     return (
         <div className="contact-grid">
-            {contacts.map((contact) => (
+            {sortedContacts.map((contact) => (
                 <div key={contact.id} className="contact-card">
                     <div className="contact-header">
                         <div className="contact-info">
